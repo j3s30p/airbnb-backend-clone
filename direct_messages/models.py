@@ -8,6 +8,7 @@ class ChattingRoom(CommonModel):
 
     users = models.ManyToManyField(
         "users.User",
+        related_name="chattingrooms",
     )
 
     def __str__(self):
@@ -24,10 +25,12 @@ class Message(CommonModel):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="messages",
     )
     chattingRoom = models.ForeignKey(
         "direct_messages.ChattingRoom",
         on_delete=models.CASCADE,
+        related_name="messages",
     )
 
     def __str__(self):
