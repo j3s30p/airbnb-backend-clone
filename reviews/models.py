@@ -14,7 +14,7 @@ class Review(CommonModel):
         "rooms.Room",
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
     experience = models.ForeignKey(
         "experiences.Experience",
