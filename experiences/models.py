@@ -30,7 +30,7 @@ class Experience(CommonModel):
     end = models.TimeField()
     description = models.TextField()
     perks = models.ManyToManyField(
-        "experiences.Perks",
+        "experiences.Perk",
         related_name="experiences",
     )
     category = models.ForeignKey(
@@ -45,7 +45,7 @@ class Experience(CommonModel):
         return self.name
 
 
-class Perks(CommonModel):
+class Perk(CommonModel):
 
     """What is included on an Experience"""
 
