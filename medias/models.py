@@ -9,6 +9,7 @@ class Photo(CommonModel):
     file = models.URLField()
     description = models.CharField(
         max_length=140,
+        default="",
     )
     room = models.ForeignKey(
         "rooms.Room",
@@ -34,6 +35,10 @@ class Video(CommonModel):
     """Video Model Definition"""
 
     file = models.URLField()
+    desciption = models.CharField(
+        max_length=140,
+        default="",
+    )
     experiece = models.OneToOneField(
         "experiences.Experience",
         on_delete=models.CASCADE,
