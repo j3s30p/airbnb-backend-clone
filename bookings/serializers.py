@@ -75,7 +75,6 @@ class CreateExperienceBookingSerializer(serializers.ModelSerializer):
                 data["experience_time"].date(),
             )
         ).exists():
-            print(data["experience_time"].date())
             raise serializers.ValidationError("Those date are already taken")
         return data
 
