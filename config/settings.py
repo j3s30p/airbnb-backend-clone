@@ -144,3 +144,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Auth
 
 AUTH_USER_MODEL = "users.User"
+
+# file storage location = "folder name"
+
+MEDIA_ROOT = "uploads"
+
+# Users can access the uploaded file by urls
+
+MEDIA_URL = "user-uploads/"
+
+PAGE_SIZE = 5

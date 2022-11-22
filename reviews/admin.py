@@ -36,8 +36,10 @@ class RatingFilter(admin.SimpleListFilter):
         rating_filter = self.value()
         if rating_filter == "high_rate":
             return reviews.filter(rating__gte=3)
-        else:
+        elif rating_filter == "low_rate":
             return reviews.filter(rating__lt=3)
+        else:
+            return reviews
 
 
 @admin.register(Review)
@@ -47,10 +49,10 @@ class ReviewAdmin(admin.ModelAdmin):
         "payload",
     )
     list_filter = (
-        WordFilter,
-        RatingFilter,
         "rating",
         "user__is_host",
         "room__category",
         "room__pet_friendly",
+        WordFilter,
+        RatingFilter,
     )

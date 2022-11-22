@@ -19,14 +19,14 @@ class Booking(CommonModel):
         on_delete=models.CASCADE,
         related_name="bookings",
     )
-    rooms = models.ForeignKey(
+    room = models.ForeignKey(
         "rooms.Room",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="bookings",
     )
-    experiences = models.ForeignKey(
+    experience = models.ForeignKey(
         "experiences.Experience",
         null=True,
         blank=True,
