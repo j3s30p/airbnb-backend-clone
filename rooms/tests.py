@@ -1,3 +1,7 @@
-from django.test import TestCase
+from rest_framework.test import APITestCase
 
-# Create your tests here.
+
+class TestAmenities(APITestCase):
+    def test_all_amenities(self):
+        reponse = self.client.get("/api/v1/rooms/amenities/")
+        print(reponse)

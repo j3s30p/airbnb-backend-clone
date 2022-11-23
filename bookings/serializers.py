@@ -70,10 +70,7 @@ class CreateExperienceBookingSerializer(serializers.ModelSerializer):
         if data["experience_time"].time() > end:
             raise serializers.ValidationError("So late")
         if Booking.objects.filter(
-            experience_time__date__range=(
-                data["experience_time"].date(),
-                data["experience_time"].date(),
-            )
+            experience_time__date=data["experience_time"].date()
         ).exists():
             raise serializers.ValidationError("Those date are already taken")
         return data
