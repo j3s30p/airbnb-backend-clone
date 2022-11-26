@@ -81,6 +81,7 @@ class TestAmenity(APITestCase):
     URL = "/api/v1/rooms/amenities/"
 
     def setUp(self):
+
         models.Amenity.objects.create(
             name=self.NAME,
             description=self.DESC,
@@ -112,7 +113,39 @@ class TestAmenity(APITestCase):
         )
 
     def test_put_amenity(self):
-        """__todo__"""
+
+        new_amenity_name = "New Amenity"
+        new_amenity_description = "New Amenity Desc"
+        wrong_amenity_name = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+
+        response = self.client.put(
+            f"{self.URL}1",
+            data={
+                "name": new_amenity_name,
+                "description": new_amenity_description,
+            },
+        )
+        data = response.json()
+        self.assertEqual(
+            response.status_code,
+            200,
+            "Not 200 status code",
+        )
+        self.assertEqual(
+            data["name"],
+            new_amenity_name,
+        )
+        self.assertEqual(
+            data["description"],
+            new_amenity_description,
+        )
+
+        response = self.client.put(
+            f"{self.URL}1",
+            data={"name": wrong_amenity_name},
+        )
+
+        self.assertEqual(response.status_code, 400)
 
     def test_delete_amenity(self):
         response = self.client.delete(f"{self.URL}1")
