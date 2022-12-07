@@ -36,6 +36,7 @@ class RoomListSerializer(serializers.ModelSerializer):
         fields = (
             "pk",
             "name",
+            "address",
             "country",
             "city",
             "price",
