@@ -28,6 +28,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY")
 GITHUB_SECRET = env("GITHUB_SECRET")
 REST_API_KEY = env("REST_API_KEY")
+CF_TOKEN = env("CF_TOKEN")
+CF_ACCOUNT_ID = env("CF_ACCOUNT_ID")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
