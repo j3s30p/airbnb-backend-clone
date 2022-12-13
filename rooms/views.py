@@ -152,6 +152,7 @@ class RoomDetail(APIView):
 
     def put(self, request, pk):
         room = self.get_object(pk)
+        print("hello")
         if not room.owner == request.user:
             raise PermissionDenied
         serializer = serializers.RoomDetailSerializer(
