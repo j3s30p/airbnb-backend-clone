@@ -3,7 +3,8 @@ from django.utils import timezone
 from django.db import transaction
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST
+from rest_framework import status
+
 from rest_framework.response import Response
 from rest_framework.exceptions import (
     NotFound,
@@ -39,7 +40,7 @@ class Amenities(APIView):
         else:
             return Response(
                 serializer.errors,
-                status=HTTP_400_BAD_REQUEST,
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
 
@@ -70,13 +71,13 @@ class AmenityDetail(APIView):
         else:
             return Response(
                 serializer.errors,
-                status=HTTP_400_BAD_REQUEST,
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
     def delete(self, request, pk):
         amenity = self.get_object(pk)
         amenity.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class Rooms(APIView):
@@ -127,7 +128,7 @@ class Rooms(APIView):
         else:
             return Response(
                 serializer.errors,
-                status=HTTP_400_BAD_REQUEST,
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
 
@@ -189,7 +190,7 @@ class RoomDetail(APIView):
         if not room.owner == request.user:
             raise PermissionDenied
         room.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class RoomReviews(APIView):
@@ -307,20 +308,19 @@ class RoomBookings(APIView):
 
     def post(self, request, pk):
         room = self.get_object(pk)
-        serializer = CreateRoomBookingSerializer(
-            data=request.data,
-            context={"room": room},
-        )
-        if serializer.is_valid():
-            booking = serializer.save(
+        try:
+            booking = Booking.objects.create(
                 room=room,
                 user=request.user,
+                check_in=request.data.get("checkIn"),
+                check_out=request.data.get("checkOut"),
                 kind=Booking.BookingKindChoices.ROOM,
+                guests=request.data.get("guests"),
             )
-            serializer = PublicBookingSerializer(booking)
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors)
+            booking.save()
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class RoomBookingCheck(APIView):

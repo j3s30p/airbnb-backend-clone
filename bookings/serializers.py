@@ -5,7 +5,6 @@ from experiences.models import Experience
 
 
 class CreateRoomBookingSerializer(serializers.ModelSerializer):
-
     check_in = serializers.DateField()
     check_out = serializers.DateField()
 
@@ -24,7 +23,6 @@ class CreateRoomBookingSerializer(serializers.ModelSerializer):
         return value
 
     def validate_check_out(self, value):
-
         now = timezone.localtime(timezone.now()).date()
         if now > value:
             raise serializers.ValidationError("Can't book in the past")
