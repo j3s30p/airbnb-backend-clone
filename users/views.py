@@ -169,6 +169,7 @@ class GithubLogIn(APIView):
                 return Response(status=status.HTTP_200_OK)
             except User.DoesNotExist:
                 user = User.objects.create(
+                    username=user_data.get("login"),
                     name=user_data.get("login"),
                     email=user_emails[0]["email"],
                     profile_photo=user_data.get("avatar_url"),
