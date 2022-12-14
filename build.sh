@@ -6,6 +6,5 @@ poetry install
 
 python3 manage.py collectstatic --no-input
 python3 manage.py migrate
-pip install -e
 pip install --upgrade pip
 pip install --force-reinstall -U setuptools
