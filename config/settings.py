@@ -196,11 +196,14 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
+else:
+    CORS_ALLOWED_ORIGINS = ["https://airbnb-frontend-j6y5.onrender.com"]
+    CSRF_TRUSTED_ORIGINS = ["https://airbnb-frontend-j6y5.onrender.com"]
 
 CORS_ALLOW_CREDENTIALS = True
-
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
 
 if not DEBUG:
     sentry_sdk.init(
